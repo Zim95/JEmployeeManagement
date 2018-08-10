@@ -1,0 +1,67 @@
+Setting up django - 
+i) Install virtualenv using pip:-
+    -pip3 install virtualenv (windows)
+    -python3 -m pip install virtualenv (linux)
+ii) Create a virtualenvironment
+    - mkvirtualenv <name>
+iii) Work on that particular environment
+    - workon <nameofvirtualenv>
+iv) Install django in the virtual environment
+    a) Installing the latest version.
+        - pip3 install django (windows)
+        - python3 -m pip install django (linux) 
+    b) Installing a specific version
+        - pip3 install django==1.9.0 (windows)
+        - python3 -m pip install django==1.9.0 (linux)
+
+Setting up PostgreSQL with django - 
+A) Windows - 
+    1) Installing PostgreSQL-
+        - Follow this tutorial : https://www.youtube.com/watch?v=e1MwsT5FJRQ&t=191s
+    2) Setting Up PGAdmin - 
+        - Go to search -> All Apps -> PostgreSQL 10 -> PGAdmin
+        - Expand servers -> Click on PostgreSQL 10
+        - Connect by entering password 
+        - That is where our databases reside
+    3) Installing PSQL (Command Line Tool for windows terminal)
+        - Navigate to where PostgreSQL is installed. (C:/ProgramFiles/PostgreSQL/10/bin)
+        - Add bin folder to environment variables.
+        - Add lib folder to environment variables.
+        - Goto command line and type:
+            -> psql -U <username> <databasename>
+               eg: psql -U postgres postgres
+            NOTE: Otherwise you will be told to type password for your default user name and since you have not created the user, it will say that the password is incorrect.
+        - \dt gives us list of tables and \du gives us a list of users.
+    4) Creating the project:
+        - First set up django environment in the working directory (Follow the above mentioned steps).
+        - Then pip freeze, you should see django. Also type django-admin to see if it is there or not.
+        - Then type:
+            django-admin startproject <projectname>
+        - cd into that directory
+        - Once you create the project, type the following:
+            -> python manage.py <command name>
+                    - python manage.py help (will show you all available commands)
+    5) Create a database in PGAdmin and migrate:
+        a) First go into Login/Group Roles and create user. Also assign related permimssions to the user.
+        b) Next Goto Databases and then right click and select create new database. Give it a name and assign it the user that you created.
+        c) Now edit this to django:
+            'default': {
+                'ENGINE':'django.db.backends.postgresql',
+                'NAME':'JEmpMgmt',
+                'USER':'<username>',
+                'PASSWORD':'<password>',
+                'HOST':'127.0.0.1',
+                'PORT':'5432'
+            }
+        d) Now install a package called psycopg2 which is a connector for django and postgres
+            - pip install psycopg2
+        e) Now migrate : python manage.py migrate
+            NOTE: Have pgAdmin Running when you do this. And make sure you have logged in to the database with the credentials of the user you just created.
+
+    6) Create a super user i.e admin:
+        - python manage.py createsuperuser
+        Enter all details and now you have a superuser
+    7) To view all tables:
+        - Go to postgres-><databasename>->schema->public->tables
+    Follow this tutorial for the steps:- https://www.youtube.com/watch?v=Axh8rNKgvmk&t=155s    
+

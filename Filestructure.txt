@@ -1,0 +1,26 @@
+Everything starts with manage.py
+1) Manage.py:
+    - All files are run from manage.py and therefore we need to think of files and directories from manage.py's location.
+    - For manage.py initially there is only one app to manage, which is the app with the project name itself.
+    - Therefore, we can understand that the app with the name of the project is the core app that handles everything.
+    - So, what happens in django when you create a project is that a core app with the same name as the project is created.
+    - It has the same name for two reasons:
+        -> Django doesnt know by default what to call it.
+        ->  Even if it did then I think it was intentional to have the core app with the same name as the project.
+    - Anyways, later on when we have more apps, more folders will appear on the same directory level as the core app.
+    - If, we look at manage.py we see the following:
+            os.environ.setdefault("DJANGO_SETTINGS_MODULE", "JEmployeeManagement.settings")
+        here, JEmployeeManagement is the core app name, which means it is also the name of the project.
+        This means that manage.py loads the settings.py inside the core app folder as core settings.
+        If we look at it, we can see that DJANGO_SETTINGS_MODULE is set to the settings.py file of the core app.
+    - Next, we have the following:
+            from django.core.management import execute_from_command_line
+        Django imports this method "execute_from_command_line" from core django library.
+        It then passes command line arguements using sys.argv as an argument to this function.
+            execute_from_command_line(sys.argv)
+        So it's to say that whatever we type after manage.py i.e runserver, createsuperuser, migrate are all handled by this particular function.
+
+Since the settings of the core app iss loaded as core settings, we shall now look into the settings.py of the core app.
+
+2) Settings.py of COREAPP:
+    
